@@ -373,6 +373,107 @@ let Plunderer = {
 				(IndexDB.db.pvpActions.orderBy('date'));
 
 		let actions = await actionsSelect.offset(offset).limit(perPage).desc().toArray();
+		//let actions = await actionsSelect.offset(offset).limit(perPage).desc().toArray();
+		let actions = await actionsSelect.desc().toArray();
+		/*--------------------------*/
+		//console.log(actions);
+		
+		var maxFPplundered = undefined;
+		
+		const vplayers = await IndexDB.db.players.where('id').anyOf(actions.map(it => it.playerId)).toArray();
+
+		var onlyshowFPplundarable = Settings.GetSetting('onlyshowFPplundarable');
+		
+		if(onlyshowFPplundarable)
+		{
+			var onlyshofFP = true;
+			var hide24h = true;
+			var hideVisitedXmin = true;
+		}
+		else
+		{
+			var onlyshofFP = false;
+			var hide24h = false;
+			var hideVisitedXmin = false;
+		}
+		
+		//var showMax = true;
+		
+		var hideXminago = 15;
+		
+		var possibleNewPlunders = [];
+		
+		var actionsInLast24h = [];
+		
+		actions.forEach(function(action)
+		{
+			if(action['resources'] !== undefined)
+			{
+				var currentTime = Math.round(new Date().getTime() / 1000);
+				//console.log("currentTime:"+currentTime);
+				var time = Math.round(action['date'] / 1000);
+				//console.log("time:"+time);
+				var timestamp24hago = (currentTime - (24 * 60 * 60));
+				//console.log("timestamp24hago:"+timestamp24hago);
+				var is24h = ( time < timestamp24hago);
+				//console.log(is24h);
+				var timestampXminago = (currentTime - (hideXminago * 60));
+				//console.log("timestamp24hago:"+timestamp24hago);
+				const vplayer = vplayers.find(p => p.id === action['playerId']);
+				var playerLastVisit = Math.round(vplayer['date'] / 1000);
+				//console.log("playerLastVisit: "+playerLastVisit);
+				var notvisitet = !( playerLastVisit > timestampXminago);
+				//console.log("notvisitet: "+notvisitet);
+				if(action['resources']['strategy_points'] !== undefined)
+				{
+					if(action['resources']['strategy_points'] !== undefined && maxFPplundered === undefined)
+					{
+						maxFPplundered = action;
+					}
+					else if(action['resources']['strategy_points'] !== undefined && maxFPplundered !== undefined)
+					{
+						if((action['resources']['strategy_points'] > maxFPplundered['resources']['strategy_points']))
+						{
+							maxFPplundered = action;
+							maxFPplundered['player'] = vplayer;
+						}
+					}
+				}
+		
+				if((action['resources']['strategy_points'] !== undefined || !onlyshofFP) 
+					&& (is24h || !hide24h) 
+					&& (actionsInLast24h[action['playerId']] === undefined || !hide24h) 
+					&& (notvisitet || !hideVisitedXmin))
+				{
+					possibleNewPlunders.push(action);
+					//console.log(action);
+					//console.log(action['resources']['strategy_points']);
+					//console.log(action['date']);
+				}
+				else if(!is24h)
+				{
+					// add to array of last 24
+					actionsInLast24h[(action['playerId'])] = action;
+				}
+			}
+					//console.log(action);
+		});
+		//console.log(actionsInLast24h);
+		//console.log(possibleNewPlunders);
+		
+		console.log("maxFPplundered:");
+		console.log(maxFPplundered);
+		
+		actions = possibleNewPlunders;
+		/*
+		if(showMax)
+		{
+			console.log(maxFPplundered);
+			actions = maxFPplundered;
+		}
+		*/
+		
+		/*--------------------------*/
 
 		const countSelect = filterByPlayerId ?
 			(IndexDB.db.pvpActions.where('playerId').equals(filterByPlayerId)) :

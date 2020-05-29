@@ -457,6 +457,14 @@ let Productions = {
 					var width = parseInt(d['width']);
 					var height = parseInt(d['height']);
 					sizes[MapData[index]['cityentity_id']] = (width*height)+ (Math.min(width,height) * d['street_connection_level'] / 2);
+					if(Settings.GetSetting('AddStreetToEfficiencyCalcSize'))
+					{
+						sizes[MapData[index]['cityentity_id']] = (width*height)+ (Math.min(width,height)/2);
+					}
+					else
+					{
+						sizes[MapData[index]['cityentity_id']] = width*height;
+					}
 				}
 			// einen Typ durchsteppen [money,supplies,strategy_points,...]
 			for(let i in buildings)

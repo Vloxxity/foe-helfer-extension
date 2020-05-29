@@ -432,6 +432,30 @@ let Parts = {
         if (Parts.IsPreviousLevel === false) {
 			let rest = (Parts.CityMapEntity['state']['invested_forge_points'] === undefined ? Parts.CityMapEntity['state']['forge_points_for_level_up'] : Parts.CityMapEntity['state']['forge_points_for_level_up'] - Parts.CityMapEntity['state']['invested_forge_points']);
             h.push('<div class="text-center" style="margin-top:5px;margin-bottom:5px;"><em>' + i18n('Boxes.Calculator.Up2LevelUp') + ': <span id="up-to-level-up" style="color:#FFB539">' + HTML.Format(rest) + '</span> ' + i18n('Boxes.Calculator.FP') + '</em></div>');
+			
+			// Drittel Warnung!
+			if(true)//(Parts.CityMapEntity['state']['invested_forge_points'] === undefined)
+			{
+				var loss = Math.ceil((Maezens[0]+Maezens[1]) - (Parts.CityMapEntity['state']['forge_points_for_level_up']/3*2));
+				if(loss > 0)
+				{
+					h.push('<div class="text-center" style="margin-top:5px;margin-bottom:5px;"><em>' + '<strong class="error" style="color: #ec4d4d;" >Kann gedrittelt werden!</strong><br>Verlust' + ': <span id="up-to-level-up" style="color:#FFB539">' + HTML.Format(loss) + '</span> ' + i18n('Boxes.Calculator.FP') + '</em></div>');
+				}
+			}
+			else
+			{
+				
+			}
+			/*
+			console.log('Maezenbelohnung*1,9:');
+			console.log(Maezens);
+			console.log('Eigeneinsatz zum absichern pro Platz:');
+			console.log(Eigens);
+			console.log('Gezahlter Eigenanteil:');
+			console.log(EigenStart);
+			console.log('FPRewards:');
+			console.log(FPRewards);
+			*/
         }
 
 		h.push(Calculator.GetRecurringQuestsLine());
