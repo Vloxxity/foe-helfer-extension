@@ -818,7 +818,6 @@ let Calculator = {
 			p1result = p1win-p1paysp2;
 			p2result = p2win+p1paysp2;
 			
-			if((gesamt > 0) && (Einzahlungen[platz] < drittel) && ((drittel*2) > rest))
 			if((gesamt > 0) && (Einzahlungen[platz] < drittel) && ((drittel*2) < rest))
 			{
 			
