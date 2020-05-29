@@ -1012,7 +1012,7 @@ let Calculator = {
 			'<tr>' +
 				'<th>' + i18n('Boxes.LGOverviewBox.Building') + '</th>' +
 				'<th class="text-center">' + i18n('Boxes.LGOverviewBox.Level') + '</th>' +
-				'<th class="text-center">' + i18n('Boxes.LGOverviewBox.PayedTotal') + '</th>' +
+				'<th class="text-center">' + i18n('Boxes.LGOverviewBox.PaidTotal') + '</th>' +
 				'<th class="text-center">' + i18n('Boxes.LGOverviewBox.Profit') + '</th>' +
 				'<th class="text-center">' + i18n('Boxes.LGOverviewBox.Rate') + '</th>' +
 			'</tr>' +
