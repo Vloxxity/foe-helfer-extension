@@ -1,4 +1,5 @@
 /*
+ * 
  * **************************************************************************************
  *
  * Dateiname:                 calculator.js
@@ -34,7 +35,6 @@ let Calculator = {
 	Rankings : undefined,
 	CityMapEntity : undefined,
 	Overview : undefined,
-
 	rest : undefined,
 	total : undefined,
 
@@ -43,6 +43,7 @@ let Calculator = {
 	*
 	*/
 	Open: () => {
+		
 		// Nur Übersicht verfügbar
 		if (Calculator.Overview !== undefined && Calculator.CityMapEntity === undefined) {
 			Calculator.ShowOverview(false);
@@ -128,6 +129,7 @@ let Calculator = {
 
 		let PlayerID = Calculator.CityMapEntity['player_id'],
             h = [];
+		
         // Wenn sich Spieler geändert hat, dann BuildingName/PlayerName zurücksetzen
 		if (Calculator.CityMapEntity['player_id'] !== Calculator.LastPlayerID) {
 			Calculator.PlayerName = undefined;
@@ -159,6 +161,7 @@ let Calculator = {
         // BuildingName konnte nicht aus der BuildingInfo geladen werden
 		let BuildingName = BuildingNamesi18n[Calculator.CityMapEntity['cityentity_id']]['name'];
 		let Level = (Calculator.CityMapEntity['level'] !== undefined ? Calculator.CityMapEntity['level'] : 0);
+        
         h.push('<div class="text-center dark-bg" style="padding:5px 0 3px;">');
 
         // LG - Daten + Spielername
@@ -309,6 +312,8 @@ let Calculator = {
 
 		return h.join();
 	},
+	
+	   
 	/**
 	 * Der Tabellen-Körper mit allen Funktionen
 	 *
@@ -375,6 +380,7 @@ let Calculator = {
 			ForderRankCosts[Rank] = undefined;
 			SnipeRankCosts[Rank] = undefined;
 			Einzahlungen[Rank] = 0;
+				
 			if (Calculator.Rankings[i]['reward']['strategy_point_amount'] !== undefined)
 				FPNettoRewards[Rank] = Math.round(Calculator.Rankings[i]['reward']['strategy_point_amount']);
 
@@ -388,6 +394,7 @@ let Calculator = {
 			BPRewards[Rank] = Math.round(BPRewards[Rank] * arc);
 			MedalRewards[Rank] = Math.round(MedalRewards[Rank] * arc);
 			ForderFPRewards[Rank] = Math.round(FPNettoRewards[Rank] * ForderArc);
+			
 			if (EigenPos !== undefined && i > EigenPos) {
 				ForderStates[Rank] = 'NotPossible';
 				SnipeStates[Rank] = 'NotPossible';
@@ -466,6 +473,7 @@ let Calculator = {
 
 				if (ExitLoop)
 					continue;
+				
 				// Selbe Kosten wie vorheriger Rang => nicht belegbar
 				if (SnipeLastRankCost !== undefined && SnipeRankCosts[Rank] === SnipeLastRankCost) {
 					ForderStates[Rank] = 'NotPossible';
@@ -539,9 +547,11 @@ let Calculator = {
 				EinsatzClass = (ForderFPRewards[Rank] > StrategyPoints.AvailableFP ? 'error' : ''), //Default: rot wenn Vorrat nicht ausreichend, sonst gelb
 				EinsatzText = HTML.Format(ForderFPRewards[Rank]) + Calculator.FormatForderRankDiff(ForderRankDiff), //Default: Einsatz + ForderRankDiff
 				EinsatzTooltip = [HTML.i18nReplacer(i18n('Boxes.Calculator.TTForderCosts'), { 'nettoreward': FPNettoRewards[Rank], 'forderfactor': (100 + Calculator.ForderBonus), 'costs': ForderFPRewards[Rank] })],
+				
 				GewinnClass = (ForderGewinn >= 0 ? 'success' : 'error'), //Default: Grün wenn >= 0 sonst rot
 				GewinnText = HTML.Format(ForderGewinn), //Default: Gewinn
 				GewinnTooltip,
+				
 				KursClass,
 				KursText,
 				KursTooltip = [];
@@ -561,6 +571,7 @@ let Calculator = {
 				RowClass = 'info-row';
 
 				RankClass = 'info';
+				
 				if (Einzahlungen[Rank] < ForderFPRewards[Rank]) {
 					EinsatzClass = 'error';
 					EinsatzTooltip.push(HTML.i18nReplacer(i18n('Boxes.Calculator.TTPayedTooLess'), { 'payed': Einzahlungen[Rank], 'topay': ForderFPRewards[Rank], 'tooless': ForderFPRewards[Rank] - Einzahlungen[Rank] }));
@@ -578,6 +589,8 @@ let Calculator = {
 					EinsatzText += '/' + HTML.Format(ForderFPRewards[Rank]);
 				}
 				EinsatzText += Calculator.FormatForderRankDiff(ForderRankDiff);
+				
+				
 				if (ForderRankDiff > 0 && Einzahlungen[Rank] < ForderRankCosts[Rank]) {
 					EinsatzTooltip.push(HTML.i18nReplacer(i18n('Boxes.Calculator.TTForderNegativeProfit'), { 'fpcount': ForderRankDiff, 'totalfp': ForderRankCosts[Rank] }));
 				}
@@ -761,6 +774,8 @@ let Calculator = {
 			hSnipen.push('</tr>');
 		}
 			
+			
+		
 		$('#costTableFordern').html(hFordern.join(''));
 		$('#costTableBPMeds').html(hBPMeds.join(''));
 		$('#costTableSnipen').html(hSnipen.join(''));
@@ -804,6 +819,7 @@ let Calculator = {
 			p2result = p2win+p1paysp2;
 			
 			if((gesamt > 0) && (Einzahlungen[platz] < drittel) && ((drittel*2) > rest))
+			if((gesamt > 0) && (Einzahlungen[platz] < drittel) && ((drittel*2) < rest))
 			{
 			
 				costThird.push('<thead>' +
@@ -857,7 +873,7 @@ let Calculator = {
 			bestRateNettoFp: BestKursNettoFP,
 			bestRateCosts: BestKursEinsatz
 		});
-
+		
 		$('.td-tooltip').tooltip({
 			html: true,
 			container: '#costCalculator'
@@ -867,6 +883,7 @@ let Calculator = {
 
 	/**
 	 * Aktualisiert die GBs in der IndexDB
+	 * 
 	 * */
 	RefreshGreatBuildingsDB: async(GreatBuilding) => {
 		await IndexDB.addUserFromPlayerDictIfNotExists(GreatBuilding['playerId'], true);
@@ -1032,7 +1049,6 @@ let Calculator = {
 					BestKursEinsatz = CurrentGB['bestRateCosts'];
 					BestKurs = Math.round(BestKursEinsatz / BestKursNettoFP * 1000) / 10;
 					Gewinn = Math.round(BestKursNettoFP * arc) - BestKursEinsatz;
-                }
                 }							
 
 				let UnderScorePos = EntityID.indexOf('_');
