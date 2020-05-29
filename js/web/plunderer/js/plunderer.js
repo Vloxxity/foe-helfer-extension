@@ -372,7 +372,6 @@ let Plunderer = {
 				(IndexDB.db.pvpActions.where('playerId').equals(filterByPlayerId)) :
 				(IndexDB.db.pvpActions.orderBy('date'));
 
-		let actions = await actionsSelect.offset(offset).limit(perPage).desc().toArray();
 		//let actions = await actionsSelect.offset(offset).limit(perPage).desc().toArray();
 		let actions = await actionsSelect.desc().toArray();
 		/*--------------------------*/
