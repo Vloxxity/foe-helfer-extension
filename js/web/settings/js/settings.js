@@ -27,6 +27,16 @@ let Settings = {
 				language: (GuiLng === 'de' ? 'de' : 'en')
 			})
 		},
+		AddStreetToEfficiencyCalcSize : {
+			status: true,
+			title : i18n('Settings.AddStreetToEfficiencyCalcSize.Title'),
+			desc : i18n('Settings.AddStreetToEfficiencyCalcSize.Desc')
+		},
+		onlyshowFPplundarable : {
+			status: false,
+			title : i18n('Settings.onlyshowFPplundarable.Title'),
+			desc : i18n('Settings.onlyshowFPplundarable.Desc')
+		},
 		GlobalSend : {
 			status: true,
 			title : i18n('Settings.GlobalSend.Title'),
@@ -103,16 +113,6 @@ let Settings = {
 			title : i18n('Settings.ChangeLanguage.Title'),
 			desc : i18n('Settings.ChangeLanguage.Desc')
 		},
-		AddStreetToEfficiencyCalcSize : {
-			status: true,
-			title : i18n('Settings.AddStreetToEfficiencyCalcSize.Title'),
-			desc : i18n('Settings.AddStreetToEfficiencyCalcSize.Desc')
-		},
-		onlyshowFPplundarable : {
-			status: false,
-			title : i18n('Settings.onlyshowFPplundarable.Title'),
-			desc : i18n('Settings.onlyshowFPplundarable.Desc')
-		}
 		/*
 		CustomerApi : {
 			status: false,
