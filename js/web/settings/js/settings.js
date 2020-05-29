@@ -109,10 +109,10 @@ let Settings = {
 			desc : i18n('Settings.AddStreetToEfficiencyCalcSize.Desc')
 		},
 		onlyshowFPplundarable : {
-			status: true,
+			status: false,
 			title : i18n('Settings.onlyshowFPplundarable.Title'),
 			desc : i18n('Settings.onlyshowFPplundarable.Desc')
-		},
+		}
 		/*
 		CustomerApi : {
 			status: false,
