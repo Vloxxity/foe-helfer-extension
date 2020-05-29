@@ -200,7 +200,6 @@ let GildFights = {
 
 			tN += playerNew['negotiationsWon'];
 			tF += playerNew['battlesWon'];
-			tNF = (tN*2)+tF;
 
 			b.push('<tr class="' + (playerNew['player_id'] === ExtPlayerID ? ' mark-player' : '') + (change === true ? ' bg-green' : '') + '">');
 
@@ -217,10 +216,10 @@ let GildFights = {
 			b.push('<td class="text-center">');
 			b.push(playerNew['battlesWon'] + fightAddOn);
 			b.push('</td>');
-			
 			b.push('<td class="text-center">');
 			var both = playerNew['battlesWon'] + (playerNew['negotiationsWon']*2);
-			b.push(both);
+			var both2 = negotaionAddOn+fightAddOn;
+			b.push(both + both2);
 			b.push('</td>');
 
 			b.push('</tr>');
@@ -238,7 +237,7 @@ let GildFights = {
 		t.push('<th>' + i18n('Boxes.Gildfights.Player') + '</th>');
 		t.push('<th class="text-center">' + i18n('Boxes.Gildfights.Negotiations') + ' <strong class="text-warning"><small>(' + HTML.Format(tN) + ')</small></strong></th>');
 		t.push('<th class="text-center">' + i18n('Boxes.Gildfights.Fights') + ' <strong class="text-warning"><small>(' + HTML.Format(tF) + ')</small></strong></th>');
-		t.push('<th class="text-center">' + i18n('Boxes.Gildfights.Total') + ' <strong class="text-warning"><small>(' + HTML.Format(tNF) + ')</small></strong></th>');
+		t.push('<th class="text-center">' + i18n('Boxes.Gildfights.Total') + ' <strong class="text-warning"><small>(' + HTML.Format(tF) + ')</small></strong></th>');
 
 		t.push('</tr>');
 		t.push('</thead>');
