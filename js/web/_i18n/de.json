@@ -520,6 +520,6 @@
 		"Settings.Version.Title": "Version",
 		"Settings.Version.World": "Welt:",
 		"Settings.onlyshowFPplundarable.Desc": "Zeigt nur erfolgte FP-Plünderungen vor über 24h dessen Städte in den letzten 15 Minuten noch nicht besucht wurden!",
-		"Settings.onlyshowFPplundarable.Title": "Nur mögliche Plünderbare FP anzeigen"
+		"Settings.onlyshowFPplundarable.Title": "Nur mögliche plünderbare FP anzeigen"
 	}
 }
