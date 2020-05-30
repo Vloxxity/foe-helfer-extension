@@ -439,10 +439,11 @@ let Plunderer = {
 					}
 				}
 		
-				if((action['resources']['strategy_points'] !== undefined || !onlyshofFP) 
+				if(((action['resources']['strategy_points'] !== undefined || !onlyshofFP) 
 					&& (is24h || !hide24h) 
 					&& (actionsInLast24h[action['playerId']] === undefined || !hide24h) 
 					&& (notvisitet || !hideVisitedXmin))
+					|| filterByPlayerId)
 				{
 					possibleNewPlunders.push(action);
 					//console.log(action);
