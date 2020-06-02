@@ -94,6 +94,7 @@
 	color: #2196f3;
 }
 
+#OwnPartBox #OwnPartBoxBody strong.error,
 #OwnPartBox #OwnPartTable .error {
 	color: #ec4d4d;
 }
