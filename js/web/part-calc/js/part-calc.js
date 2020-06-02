@@ -136,7 +136,9 @@ let Parts = {
 	 */
 	Show: (input)=> {
 
-        let cityentity_id = Parts.CityMapEntity['cityentity_id'],
+        let 
+			costThird = [],
+			cityentity_id = Parts.CityMapEntity['cityentity_id'],
 			Level = Parts.CityMapEntity['level'],
             arcs = [],
             FPRewards = [], // FP Maezenboni pro Platz (0 basiertes Array)
@@ -427,12 +429,14 @@ let Parts = {
         h.push('</table>');
 
         Parts.BuildBackgroundBody(Maezens, Eigens, NonExts);
-
         // Wieviel fehlt noch bis zum leveln?
         if (Parts.IsPreviousLevel === false) {
 			let rest = (Parts.CityMapEntity['state']['invested_forge_points'] === undefined ? Parts.CityMapEntity['state']['forge_points_for_level_up'] : Parts.CityMapEntity['state']['forge_points_for_level_up'] - Parts.CityMapEntity['state']['invested_forge_points']);
             h.push('<div class="text-center" style="margin-top:5px;margin-bottom:5px;"><em>' + i18n('Boxes.Calculator.Up2LevelUp') + ': <span id="up-to-level-up" style="color:#FFB539">' + HTML.Format(rest) + '</span> ' + i18n('Boxes.Calculator.FP') + '</em></div>');
+<<<<<<< Updated upstream
+=======
 			
+		//------------------------------------------
 			// Drittel Warnung!
 			if(true)//(Parts.CityMapEntity['state']['invested_forge_points'] === undefined)
 			{
@@ -446,16 +450,99 @@ let Parts = {
 			{
 				
 			}
+			
 			/*
 			console.log('Maezenbelohnung*1,9:');
-			console.log(Maezens);
 			console.log('Eigeneinsatz zum absichern pro Platz:');
 			console.log(Eigens);
 			console.log('Gezahlter Eigenanteil:');
 			console.log(EigenStart);
 			console.log('FPRewards:');
 			console.log(FPRewards);
+			console.log(Maezens);
 			*/
+			
+			/*
+			//-----------------------------------------			
+				//var platz=2;
+				var possibleplaces = '';
+				//if(Maezens[1] < (rest/2))
+				for (let platz = 0; platz < Maezens.length-1; platz++)
+				{
+					console.log(platz);
+					var EinzahlungenTotal = 0;
+
+					//console.log(Maezens);
+					for(var i = 0, len = Maezens.length; i < len; i++) {
+						EinzahlungenTotal += Maezens[i];  
+					}
+					
+					
+					drittel = Math.ceil((rest+(Maezens[platz]))/3);
+					p1win = Maezens[platz]-drittel;
+					p2win = Maezens[platz+1]-drittel;
+					
+					gesamt = p1win + p2win;
+					
+					p1paysp2 = Math.ceil((gesamt/2)-p2win);
+					p1result = p1win-p1paysp2;
+					p2result = p2win+p1paysp2;
+					
+					console.log("Einzahlungen:"+EinzahlungenTotal);
+					console.log("gesamt:"+gesamt);
+					console.log("Maezens[platz]:"+Maezens[platz]);
+					console.log("drittel:"+drittel);
+					console.log("rest:"+rest);
+					
+					
+					console.log("("+gesamt+" > 0) && ("+Maezens[platz]+" < "+drittel+") && (("+drittel+"*2) < "+rest+")");
+					if((gesamt > 0) && (Maezens[platz] < drittel) && ((drittel*2) < rest))
+					{
+					
+						costThird.push('<thead>' +
+						'<th>#</th>' +
+						'<th>' + i18n('Boxes.Calculator.Commitment') + '</th>' +
+						'<th>' + i18n('Boxes.Calculator.Profit') + '</th>' +
+						'<th>Ausgleichszahlung</th>' +
+						'<th>Ergebnis</th>' +
+						'</thead>');
+						
+						costThird.push('<tr class="">');
+						costThird.push(
+											'<td class="text-center"><strong>'+(platz+1)+'</strong></td>' +
+											'<td class="text-center"><strong>'+drittel+'</strong></td>' +
+											'<td class="text-center"><strong class="success">'+p1win+'</strong></td>' +
+											'<td class="text-center"><strong class="error">-'+p1paysp2+'</strong></td>' +
+											'<td class="text-center"><strong class="success">'+p1result+'</strong></td>'
+										);
+						costThird.push('</tr>');
+						
+						costThird.push('<tr class="">');
+						costThird.push(
+											'<td class="text-center"><strong>'+(platz+2)+'</strong></td>' +
+											'<td class="text-center"><strong>'+drittel+'</strong></td>' +
+											'<td class="text-center"><strong class="error">'+p2win+'</strong></td>' +
+											'<td class="text-center"><strong class="success">'+p1paysp2+'</strong></td>' +
+											'<td class="text-center"><strong class="success">'+p2result+'</strong></td>'
+										);
+						costThird.push('</tr>'); 
+						
+						//h.push('<br>' + Calculator.PlayerName + (Calculator.ClanName !== undefined ? ' - ' + Calculator.ClanName : ''));
+						//h.push('<br>' + Calculator.PlayerName + (Calculator.ClanName !== undefined ? ' - ' + Calculator.ClanName : ''));
+						console.log("1/3 : "+Calculator.PlayerName+" - "+BuildingNamesi18n[Calculator.CityMapEntity['cityentity_id']]['name']+" - "+drittel+" -> "+p1result+" = "+Math.ceil(p1result/drittel*100)+"% Gewinn");
+						//console.log("1/3 : "+PlayerName+" - "+GBName+" - "+GewinnString+" - "+KursString);
+					}
+					
+						//costThird.push('<tr><td>Gewinn:</td><td><strong class="'+((gesamt > 0) ? 'success' : 'error')+'">'+(gesamt > 0)+'</strong></td></tr>');
+						//costThird.push('<tr><td>Genug Rest zum überbieten:</td><td><strong class="'+((Einzahlungen[platz] < drittel) ? 'success' : 'error')+'">'+(Einzahlungen[platz] < drittel)+'</strong></td></tr>');
+						//$('#costThird').html(costThird.join(''));
+				}
+				//$('#costThird').html(costThird.join(''));
+				//h.push(costThird.join(''));
+				console.log(costThird);
+			*/
+			//-----------------------------------------
+>>>>>>> Stashed changes
         }
 
 		h.push(Calculator.GetRecurringQuestsLine());
