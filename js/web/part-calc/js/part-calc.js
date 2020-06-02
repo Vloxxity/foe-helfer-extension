@@ -543,6 +543,11 @@ let Parts = {
 										);
 						costThird.push('</tr>'); 
 						
+						costThird.push('<tr class="">');
+						costThird.push('<td colspan="5" class="text-center" style="margin-top:5px;margin-bottom:5px;"><em>' + '<strong class="error" style="color: #ec4d4d;" >Kann gedrittelt werden!</strong><br>Verlust' + ': <span id="up-to-level-up" style="color:#FFB539">' + HTML.Format(gesamt) + '</span> ' + i18n('Boxes.Calculator.FP') + '</em></td>');
+
+						costThird.push('</tr>'); 
+						
 						
 						//h.push('<br>' + Calculator.PlayerName + (Calculator.ClanName !== undefined ? ' - ' + Calculator.ClanName : ''));
 						//h.push('<br>' + Calculator.PlayerName + (Calculator.ClanName !== undefined ? ' - ' + Calculator.ClanName : ''));
