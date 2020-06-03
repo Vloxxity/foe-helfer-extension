@@ -518,7 +518,7 @@ let Parts = {
 					
 					if((gesamt > 0) && (aktuellZahlungAnDemPlatz[platz] < drittel) && ((drittel*2) < rest))
 					{
-						//console.log("("+gesamt+" > 0) && ("+aktuellZahlungAnDemPlatz[platz]+" < "+drittel+") && (("+drittel+"*2) < "+rest+")");
+						console.log("("+gesamt+" > 0) && ("+aktuellZahlungAnDemPlatz[platz]+" < "+drittel+") && (("+drittel+"*2) < "+rest+")");
 					
 						costThird.push('<thead>' +
 						'<th>#</th>' +
