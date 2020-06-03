@@ -478,18 +478,21 @@ let Parts = {
 				var possibleplaces = '';
 				//if(Maezens[1] < (rest/2))
 				var EinzahlungenTotal = 0;
+					EinzahlungenTotal = aktuellZahlungAnDemPlatz;  
 				for (let platz = 0; platz < Maezens.length-1; platz++)
 				{
 					//console.log(platz);
 
 					//var aktuellZahlungAnDemPlatz = [0,0,0,0,0,0];
 					//var aktuellZahlungAnDemPlatz = Maezens;
+					var max = aktuellZahlungAnDemPlatz.reduce(function(a, b) {
+					  return Math.max(a, b);
+					});
+					console.log(max);
+					console.log(aktuellZahlungAnDemPlatz);
+					aktuellZahlungAnDemPlatz[platz]= 0;
 					
-					//console.log(Maezens);
-					EinzahlungenTotal += aktuellZahlungAnDemPlatz[platz];  
-					
-					
-					drittel = Math.ceil((rest+(EinzahlungenTotal))/3);
+					drittel = Math.ceil((rest+(max))/3);
 					p1win = Maezens[platz]-drittel;
 					p2win = Maezens[platz+1]-drittel;
 					
@@ -508,12 +511,14 @@ let Parts = {
 					console.log("drittel:"+drittel);
 					console.log("rest:"+rest);
 					console.log(Eigens);
+					console.log('Maezens[platz]');
+					console.log(Maezens[platz]);
 					*/
 					
 					
 					if((gesamt > 0) && (aktuellZahlungAnDemPlatz[platz] < drittel) && ((drittel*2) < rest))
 					{
-						console.log("("+gesamt+" > 0) && ("+aktuellZahlungAnDemPlatz[platz]+" < "+drittel+") && (("+drittel+"*2) < "+rest+")");
+						//console.log("("+gesamt+" > 0) && ("+aktuellZahlungAnDemPlatz[platz]+" < "+drittel+") && (("+drittel+"*2) < "+rest+")");
 					
 						costThird.push('<thead>' +
 						'<th>#</th>' +

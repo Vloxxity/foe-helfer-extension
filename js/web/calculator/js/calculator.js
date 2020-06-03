@@ -219,9 +219,6 @@ let Calculator = {
 		h.push('<td><table id="costTableBPMeds" class="foe-table"></table></td>');
 		h.push('<td><table id="costTableSnipen" class="foe-table"></table></td>');
 		h.push('</tr></tbody></table>');
-		h.push('<table style="width:100%"><tbody><tr>');
-		h.push('<td><table id="costThird" class="foe-table"></table></td>');
-		h.push('</tr></tbody></table>');
 
         // Wieviel fehlt noch bis zum leveln?
 		total = Calculator.CityMapEntity['state']['forge_points_for_level_up'];
@@ -229,6 +226,10 @@ let Calculator = {
         
 		h.push('<div class="text-center" style="margin-top:5px;margin-bottom:5px;"><em>' + i18n('Boxes.Calculator.Up2LevelUp') + ': <span id="up-to-level-up" style="color:#FFB539">' + HTML.Format(rest) + '</span> ' + i18n('Boxes.Calculator.FP') + '</em></div>');
 
+		h.push('<table style="width:100%"><tbody><tr>');
+		h.push('<td><table id="costThird" class="foe-table"></table></td>');
+		h.push('</tr></tbody></table>');
+		
 		h.push(Calculator.GetRecurringQuestsLine());
 		
         // in die bereits vorhandene Box drücken
@@ -847,6 +848,11 @@ let Calculator = {
 									'<td class="text-center"><strong class="success">'+p1paysp2+'</strong></td>' +
 									'<td class="text-center"><strong class="success">'+p2result+'</strong></td>'
 								);
+				costThird.push('</tr>'); 
+						
+				costThird.push('<tr class="">');
+				costThird.push('<td colspan="5" class="text-center" style="margin-top:5px;margin-bottom:5px;"><em>' + '<strong class="success">Kann gedrittelt werden!</strong><br>Gewinn' + ': <span id="up-to-level-up" style="color:#FFB539">' + HTML.Format(gesamt) + '</span> ' + i18n('Boxes.Calculator.FP') + '</em></td>');
+
 				costThird.push('</tr>'); 
 				
 				//h.push('<br>' + Calculator.PlayerName + (Calculator.ClanName !== undefined ? ' - ' + Calculator.ClanName : ''));
