@@ -465,6 +465,7 @@ let Productions = {
 						sizes[MapData[index]['cityentity_id']] = width*height;
 					}
 				}
+				
 			// einen Typ durchsteppen [money,supplies,strategy_points,...]
 			for(let i in buildings)
 			{
@@ -503,10 +504,10 @@ let Productions = {
 					// nur Gebäude mit Gütern
 					else {
 
-						let tds = '<tr><td>' + buildings[i]['name'] + '</td>';
+						let tds = '<tr><td data-text="' + buildings[i]['name'].cleanup() + '">' + buildings[i]['name'] + '</td>';
 
 						let pA = [];
-
+						
 						for(let p in buildings[i]['products'])
 						{
 							if(buildings[i]['products'].hasOwnProperty(p) && (Productions.Types.includes(p) === false || p === 'packaging'))
@@ -521,8 +522,14 @@ let Productions = {
 								countAll += Amount;
 
 								pA.push(HTML.Format(Amount) + ' ' + Productions.GetGoodName(p));
+								pAGES = p;
 							}
 						}
+								let eraID = GoodsData[pAGES]['era'];
+								let eraNumber = Technologies.Eras[eraID];
+								let eraName = i18n('Eras.' + eraNumber);
+																
+								tds += '<td class="text-right is-number" data-number="'+eraNumber+'">' + eraName + '</td>';
 
 						tds +='<td>' + pA.join('<br>') + '</td>' +
 							'<td>' + moment.unix(buildings[i]['at']).format(i18n('DateTime')) + '</td>' +
@@ -629,7 +636,12 @@ let Productions = {
 
 				table.push('<tbody>');
 
-				table.push('<tr><td class="total-products text-right" colspan="5"><strong>' + i18n('Boxes.Productions.Total') + HTML.Format(countAll) + '</strong></td></tr>');
+				table.push('<tr class="sorter-header">');
+				table.push('<th class="is-number game-cursor" data-type="' + type + '-single">' + i18n('Boxes.Productions.Headings.name') + '</th>');
+				table.push('<th class="is-number game-cursor text-right" data-type="' + type + '-single">' + i18n('Boxes.Productions.Headings.era') + '</th>');
+				table.push('<th class="no-sort is-number game-cursor text-right" data-type="' + type + '-single">' + i18n('Boxes.Productions.Headings.amount') + '</th>');
+				table.push('<th class="no-sort total-products text-right" colspan="5"><strong>' + i18n('Boxes.Productions.Total') + HTML.Format(countAll) + '</strong></th>');
+				table.push('</tr>');
 			}
 
 			else {
