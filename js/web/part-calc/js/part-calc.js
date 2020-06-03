@@ -488,8 +488,8 @@ let Parts = {
 					var max = aktuellZahlungAnDemPlatz.reduce(function(a, b) {
 					  return Math.max(a, b);
 					});
-					console.log(max);
-					console.log(aktuellZahlungAnDemPlatz);
+					//console.log(max);
+					//console.log(aktuellZahlungAnDemPlatz);
 					aktuellZahlungAnDemPlatz[platz]= 0;
 					
 					drittel = Math.ceil((rest+(max))/3);
